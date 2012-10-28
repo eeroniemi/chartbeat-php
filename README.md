@@ -11,15 +11,16 @@ Please give feedback, report bugs, fork and contribute.
 ## Usage
 
 ```php
-include_once('chartbeat-php/src/Chartbeat/Chartbeat.php');_
+include_once('src/Chartbeat/Chartbeat.php');_
 $apiKey = '<your api key>';
 $host = '<your host>';
 $cb = new Chartbeat\Chartbeat($apiKey, $host);
 
 // get monthly max people on site
 echo 'Monthly max people on the site: ' . $cb->getMonthlyMaxPeople(); 
+```
 
-You can also do any kind of API query using get() method. First parameter is data endpoint (eg. historical/traffic/series), seconds one contains parameters.
+You can also do any kind of API query using get() method. First parameter is data endpoint (eg. 'historical/traffic/series'), seconds one contains parameters.
 
 In here, we get top referer of page which has most visitors right now:
 
