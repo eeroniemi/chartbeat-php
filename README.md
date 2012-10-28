@@ -11,7 +11,7 @@ Please give feedback, report bugs, fork and contribute.
 ## Usage
 
 ```php
-include_once('src/Chartbeat/Chartbeat.php');_
+include_once('src/Chartbeat/Chartbeat.php');
 $apiKey = '<your api key>';
 $host = '<your host>';
 $cb = new Chartbeat\Chartbeat($apiKey, $host);
