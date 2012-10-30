@@ -143,13 +143,13 @@ class Chartbeat
 		}
 
 		$curlErrorNumber = curl_error($this->curl);
-		if ($curlError != 0)
+		if ($curlErrorNumber != 0)
 		{
 			$curlErrorMsg = curl_error($this->curl);
 			throw new Exception('Curl error ' . $curlErrorMsg . ' / ' . $curlErrorNumber, Exception::ERROR_CURL);
 		}
 		curl_close($this->curl);
-		unset($this->curl); // delete cURL object after every request;
+		$this->curl = null; // delete cURL object after every request;
 		return $data;
 	}
 
@@ -183,12 +183,57 @@ class Chartbeat
 	/**
 	 * Get monthly max people (=concurrent users on site)
 	 *
-	 * @return integer  Monthly max people 
+	 * @param  array    $userParams     Extra parameters passed to API
+	 * @return integer                  Monthly max people 
 	 */
-	public function getMonthlyMaxPeople()
+	public function getMonthlyMaxPeople($userParams = array())
 	{
-		$cbData = $this->get('historical/traffic/stats/');
+		$cbData = $this->get('historical/traffic/stats/', $userParams);
 		$max = isset($cbData->data->{$this->host}->people->max) ? $cbData->data->{$this->host}->people->max : null;
 		return $max;
+	}
+
+	/*
+	 * Get maximum amount of people between certain timestamps
+	 *
+	 * About timestamp-parameters: A string in the form of a unix timestamp, 
+	 * YYYY-mm-dd, YY-mm-dd HH:MM:SS or a time delta, where the time delta 
+	 * specified is start time prior to now. 
+	 *
+	 * NOTE: start/end is only accepted in EST.
+	 *
+	 * @param mixed  $start         Start time
+	 * @param mixed  $end           End time
+	 * @param array  $userParams    Extra parameters passed to API
+	 * @return       integer        Max people
+	 */
+	public function getMaxPeopleBetween($start, $end, $userParams = array())
+	{
+		$userParams = array_merge($userParams, array('start' => $start, 'end' => $end, 'properties' => 'max'));
+		$cbData = $this->get('historical/traffic/stats/', $userParams);
+		$max = isset($cbData->data->{$this->host}->people->max) ? $cbData->data->{$this->host}->people->max : null;
+		return $max;
+	}
+
+	/*
+	 * Get minimum amount of people between certain timestamps
+	 *
+	 * About timestamp-parameters: A string in the form of a unix timestamp, 
+	 * YYYY-mm-dd, YY-mm-dd HH:MM:SS or a time delta, where the time delta 
+	 * specified is start time prior to now. 
+	 *
+	 * NOTE: start/end is only accepted in EST.
+	 *
+	 * @param mixed  $start         Start time
+	 * @param mixed  $end           End time
+	 * @param array  $userParams    Extra parameters passed to API
+	 * @return       integer        Max people
+	 */
+	public function getMinPeopleBetween($start, $end, $userParams = array())
+	{
+		$userParams = array_merge($userParams, array('start' => $start, 'end' => $end, 'properties' => 'min'));
+		$cbData = $this->get('historical/traffic/stats/', $userParams);
+		$min = isset($cbData->data->{$this->host}->people->min) ? $cbData->data->{$this->host}->people->min : null;
+		return $min;
 	}
 }
