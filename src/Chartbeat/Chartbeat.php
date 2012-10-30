@@ -236,4 +236,23 @@ class Chartbeat
 		$min = isset($cbData->data->{$this->host}->people->min) ? $cbData->data->{$this->host}->people->min : null;
 		return $min;
 	}
+	
+	/*
+	 * Get Facebook likes between certain timestamps
+	 *
+	 * See getMinPeopleBetween() or getMaxPeopleBetween() to more information about
+	 * how to use timestamp-parameters ($start and $end)
+	 *
+	 * @param mixed  $start         Start time
+	 * @param mixed  $end           End time
+	 * @param array  $userParams    Extra parameters passed to API
+	 * @return       integer        Number of Facebook likes
+	 */
+	public function getFacebookLikesBetween($start, $end, $userParams = array())
+	{
+		$userParams = array_merge($userParams, array('start' => $start, 'end' => $end, 'fields' => 'fb_page_likes', 'properties' => 'max'));
+		$cbData = $this->get('historical/social/stats/', $userParams);
+		$likes = isset($cbData->data->{$this->host}->fb_page_likes->max) ? $cbData->data->{$this->host}->fb_page_likes->max : null;
+		return $likes;
+	}
 }
