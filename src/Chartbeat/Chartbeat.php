@@ -1,8 +1,6 @@
 <?php
 namespace Chartbeat;
 
-include_once('Exception.php');
-
 /*
  * Library to interact with Chartbeat API
  * 

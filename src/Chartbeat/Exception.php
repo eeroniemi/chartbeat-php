@@ -1,5 +1,4 @@
 <?php
-
 namespace Chartbeat;
 
 class Exception extends \Exception
