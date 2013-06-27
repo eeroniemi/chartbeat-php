@@ -8,13 +8,25 @@ This library requires PHP >5.3 and cURL extension for PHP to work. Tested with P
 
 Please give feedback, report bugs, fork and contribute.
 
-## Usage
+## Installation
+
+Add chartbeat-php to your composer.json:
 
 ```php
-include_once('src/Chartbeat/Chartbeat.php');
+{
+	"require" : {
+		"chartbeat/chartbeat-php" : "dev-master"
+	}
+}
+```
+
+Simple test script:
+
+```php
+require_once ('vendor/autoload.php'); // composer autoloader
 $apiKey = '<your api key>';
 $host = '<your host>';
-$cb = new Chartbeat\Chartbeat($apiKey, $host);
+$cb = new Chartbeat\Chartbeat($host, $apiKey);
 
 // get monthly max people on site
 echo 'Monthly max people on the site: ' . $cb->getMonthlyMaxPeople(); 

@@ -1,6 +1,7 @@
 #!/usr/bin/php
 <?php
 require 'src/Chartbeat/Chartbeat.php';
+require 'src/Chartbeat/Exception.php';
 
 echo "Chartbeat example script\n";
 
