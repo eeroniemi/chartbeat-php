@@ -1,5 +1,5 @@
 {
-    "name": "eeroniemi/chartbeat-php",
+    "name": "chartbeat/chartbeat-php",
     "type": "library",
     "description": "PHP library for Chartbeat",
     "keywords": ["chartbeat"],
