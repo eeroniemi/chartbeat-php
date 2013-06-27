@@ -15,7 +15,7 @@ Add chartbeat-php to your composer.json:
 ```php
 {
 	"require" : {
-		"chartbeat/chartbeat-php" : "dev-master"
+		"chartbeat/chartbeat-php" : "1.*"
 	}
 }
 ```
